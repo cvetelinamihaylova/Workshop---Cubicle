@@ -6,5 +6,8 @@ const app = require('express')();
 
 require('./config/express')(app);
 require('./config/routes')(app);
+const dbConnection = require('./config/database')(config.dbConnectionString);
 
-app.listen(config.port, console.log(`Listening on port ${config.port}! Now its up to you...`));
+dbConnection.then(()=>{
+    app.listen(config.port, console.log(`Listening on port ${config.port}! Now its up to you...`));
+})
