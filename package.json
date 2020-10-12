@@ -7,6 +7,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-handlebars": "^3.1.0",
+    "mongod": "^2.0.0",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.10.9",
     "uniqid": "^5.0.3"
   },
   "devDependencies": {
