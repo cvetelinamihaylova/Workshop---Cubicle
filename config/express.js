@@ -1,6 +1,8 @@
 const express = require('express');
 const handlebars = require('express-handlebars');
 const path = require('path');
+const cookieParser = require('cookie-parser');
+const auth = require('../middlewares/auth'); 
 
 
 module.exports = (app) => {
@@ -10,6 +12,8 @@ module.exports = (app) => {
     app.set('view engine', '.hbs');
 
     app.use(express.urlencoded({ extended: true }));
+    app.use(cookieParser());
+    app.use(auth);
 
     const staticFilePath = path.join(global._basedir, 'static');
     app.use(express.static(staticFilePath));
