@@ -16,7 +16,7 @@ module.exports = {
         cubeModel.find(query)
             .populate('accessories')
             .then((cubes) => {
-                res.render('index', { cubes, from, search, to });
+                res.render('index', { cubes, from, search, to} );
             })
             .catch(next);
     },
@@ -25,7 +25,7 @@ module.exports = {
         cubeModel.findById(id)
             .populate('accessories')
             .then(cube => {
-                res.render('details', { cube })
+                res.render('details', { cube})
             })
             .catch(next);
     },
