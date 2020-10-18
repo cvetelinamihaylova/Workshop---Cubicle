@@ -17,7 +17,7 @@ module.exports = {
         }
 
         userModel.create({ username, password })
-            .then(() => { res.render('login') })
+            .then(() => { res.redirect('/login') })
             .catch(next);
     },
     getLogin(req, res) {
@@ -25,19 +25,20 @@ module.exports = {
     },
     postLogin(req, res, next) {
         const { username, password } = req.body;
+      
         userModel.findOne({ username })
-            .then((user) => Promise.all([user, user ? user.comparePasswords(password) : false]))
-            .then(([user, match]) => {
-                if (!match) {
-                    res.render('login', { errorMessage: 'Wrong username or password!' });
-                    return;
-                }
-                return signToken({ userId: user._id }, jwtSecret);
-            })
-            .then((token) => {
-                res.cookie(authCookieName, token, { httpOnly: true });
-                res.redirect('/');
-            })
-            .catch(next);
-    }
+          .then(user => Promise.all([user, user ? user.comparePasswords(password) : false]))
+          .then(([user, match]) => {
+            if (!match) {
+              res.render('login', { errorMessage: 'Wrong username or password' });
+              return;
+            }
+            return signToken({ userId: user._id }, jwtSecret);
+          })
+          .then(jwtToken => {
+            res.cookie(authCookieName, jwtToken, { httpOnly: true });
+            res.render('index');
+          })
+          .catch(next);
+      }
 }
