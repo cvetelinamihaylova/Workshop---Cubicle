@@ -7,9 +7,10 @@ const checkAuth = require('../middlewares/check-auth');
 module.exports = (app) => {
     app.get('/', cubeControllers.getCubes),
         app.get('/login', checkAuth(false), userControllers.getLogin),
+        app.post('/login', checkAuth(false), userControllers.postLogin),
+        
         app.get('/register', checkAuth(false), userControllers.getRegister),
         app.post('/register', checkAuth(false), userControllers.postRegister),
-        app.post('/login', checkAuth(false), userControllers.postLogin),
 
         app.get('/details/:id', cubeControllers.getCube),
 
