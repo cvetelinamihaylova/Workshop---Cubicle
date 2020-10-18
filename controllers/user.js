@@ -37,8 +37,12 @@ module.exports = {
           })
           .then(jwtToken => {
             res.cookie(authCookieName, jwtToken, { httpOnly: true });
-            res.render('index');
+            res.redirect('/');
           })
           .catch(next);
+      },
+      getLogout(req, res, next){
+        res.clearCookie(authCookieName);
+        res.redirect('/');
       }
 }
