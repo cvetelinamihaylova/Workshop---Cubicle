@@ -1,9 +1,14 @@
-module.exports = function checkAuth(shouldBeAuthenticated) {
+  module.exports = function checkAuth(shouldBeAuthenticated) {
     return function (req, res, next) {
-
-        if ((shouldBeAuthenticated && !req.user) || (!shouldBeAuthenticated && req.user)) {
-            res.redirect('/');
-        }
-        next();
-    }
-}
+      const isNotAuthWhenAuthIsRequired =
+        shouldBeAuthenticated && !req.user;
+      if (
+        (isNotAuthWhenAuthIsRequired) ||
+        (!shouldBeAuthenticated && req.user)
+      ) {
+        res.redirect(isNotAuthWhenAuthIsRequired ? '/login' : '/');
+        return;
+      }
+      next();
+    };
+  };
