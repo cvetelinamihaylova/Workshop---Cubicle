@@ -11,8 +11,8 @@ module.exports = (app) => {
     }));
     app.set('view engine', '.hbs');
 
-    app.use(express.urlencoded({ extended: true }));
     app.use(cookieParser());
+    app.use(express.urlencoded({ extended: true }));
     app.use(auth);
 
     const staticFilePath = path.join(global._basedir, 'static');
